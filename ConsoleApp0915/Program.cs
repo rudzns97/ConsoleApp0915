@@ -72,7 +72,7 @@ namespace ConsoleApp0915
         
         public void PrintAccInfo() //계좌정보 출력
         {
-            Console.WriteLine($"계좌번호{accNum} / 예금주명: {accNum} / 잔액: {this.Name} / 이자율:{interest}");
+            Console.WriteLine($"계좌번호{accNum} / 예금주명: {accNum} / 잔액: {this.Balance} / 이자율:{interest}");
         }
         public void SetInterest(double interest) //이자율 변경
         {

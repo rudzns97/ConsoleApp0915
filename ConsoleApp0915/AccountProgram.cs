@@ -11,8 +11,10 @@ namespace ConsoleApp0915
     class AccountManager
     {
         BankAccount account;
+        
         public void PrintMenu() // 계좌관리프로그램 메뉴
         {
+            
             Console.WriteLine("\n---Menu---------");
             Console.WriteLine("1. 계좌 개설");
             Console.WriteLine("2. 입금");
@@ -27,13 +29,55 @@ namespace ConsoleApp0915
             string accNum = Console.ReadLine();
             Console.Write("예금주명");
             string accName = Console.ReadLine();
+
             account = new BankAccount(accNum, accName); 
+            //account.AccNum = accNum;
             }
+        private bool CheckAccount() 
+        {
+            if (account == null)
+            {
+                Console.WriteLine("계좌개설을 먼저 해주십시오");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public void Deposit() //2. 입금
         {
+            if (CheckAccount() == false) return;
+            
             Console.Write("입금하실 금액은?:");
             int money = int.Parse(Console.ReadLine());
-            
+            account.InputMoney(money);
+            int d = account.Balance;
+            //Console.Write("잔액:"+d);
+
+        }
+        public void Out() //3. 출금
+        {
+            if (account == null)
+            {
+                Console.WriteLine("계좌개설을 먼저 해주십시오");
+                return;
+            }
+            Console.Write("출금하실 금액은?:");
+            int money = int.Parse(Console.ReadLine());
+            account.OutputMoney(money);
+            int d = account.Balance;
+            //Console.Write("잔액:" + d);
+        }
+        public void In() //4. 잔액 조회
+        {
+            if (account == null)
+            {
+                Console.WriteLine("계좌개설을 먼저 해주십시오");
+                return;
+            }
+            int d = account.Balance;
+            Console.Write("잔액:" + d);
         }
 
     }
@@ -43,12 +87,12 @@ namespace ConsoleApp0915
         {
 
             AccountManager manager = new AccountManager();
-            Console.WriteLine(manager.ToString());
+            //Console.WriteLine(manager.ToString());
 
             while (true)
             {
                 manager.PrintMenu();
-                Console.WriteLine(manager.ToString());
+                //Console.WriteLine(manager.ToString());
                 int choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {
@@ -56,6 +100,11 @@ namespace ConsoleApp0915
                         manager.MakeAccount(); break;
                     case 2:
                         manager.Deposit(); break;
+                    case 3:
+                        manager.Out(); break;
+                        
+                    case 4:
+                        manager.In(); break;
                     case 5: return;
                     default:
                         Console.WriteLine("다시 선택하세요"); break;
